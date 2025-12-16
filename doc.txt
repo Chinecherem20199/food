@@ -1,0 +1,25 @@
+FLW_SECRET_KEY=
+FLW_BASE=https://api.flutterwave.com/v3
+export const flw = new Flutterwave(
+  process.env.FLW_PUBLIC_KEY,
+  process.env.FLW_SECRET_KEY
+);
+const response = await flw.Payment.initialize({
+    tx_ref: Date.now(),
+    amount: total,
+    currency: "NGN",
+    customer: {
+      email: user.email,
+    },
+  });
+
+  export const User = mongoose.model("User", userSchema)
+   Then you MUST import it like this:
+
+  import { User } from "../models/user.js";
+
+  but
+  import User from "../models/user.js"; Then
+  const User = mongoose.model("User", userSchema);
+
+  export default User;
