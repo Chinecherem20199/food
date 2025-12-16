@@ -1,4 +1,4 @@
-import Food from '../models/Food.js';
+import Food from '../models/food.js';
 
 export const getFoods = async (req, res) => {
     const foods = await Food.find().populate('restaurant');
