@@ -1,15 +1,37 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_URI, {
+//             dbName: 'food-delivery'
+//         });
+//         console.log('MongoDB connected');
+//     } catch (err) {
+//         console.error('MongoDB connection error', err);
+//         process.exit(1);
+//     }
+// };
+
+// export default connectDB;
+import mongoose from 'mongoose';
+import mongoKeepAlive from "./mongoKeepAlive.js";
 
 const connectDB = async () => {
-try {
-await mongoose.connect(process.env.MONGO_URI, { dbName: 'food-delivery' });
-console.log('MongoDB connected');
-} catch (err) {
-console.error('MongoDB connection error', err);
-process.exit(1);
-}
-};
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      dbName: "food-delivery",
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 30000
+    });
 
+    console.log("MongoDB Atlas connected");
+    mongoose.connection.once('open', () => {
+        mongoKeepAlive();
+    });
+  } catch (err) {
+    console.error("MongoDB connection error:", err.message);
+    process.exit(1);
+  }
+};
 
 export default connectDB;

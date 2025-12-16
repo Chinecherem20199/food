@@ -13,7 +13,10 @@ import riderRoutes from './routes/riderRoute.js';
 connectDB();
 
 const app = express();
-
+// 🔹 Health check FIRST
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 // ✅ THIS LINE FIXES req.body
 app.use(express.json());
 
